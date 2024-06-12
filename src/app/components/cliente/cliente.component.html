@@ -1,0 +1,94 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="titulo">Cliente</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="titulo">{{accion | uppercase}}</h5>
+                    <form [formGroup]="formClientes" (ngSubmit)="AddClientes();">
+                        <div class="input-group input-group-lg mb-3">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-id-card"
+                                    [class.green-icon]="this.formClientes.get('idcliente')?.valid"
+                                    [class.red-icon]="this.formClientes.get('idcliente')?.invalid && this.formClientes.get('idcliente')?.touched"></i>
+                            </span>
+                            <input formControlName="idcliente" minlength="1" maxlength="50" type="text" class="form-control" placeholder="ID Cliente" [disabled]="accion === 'Editar'">
+                        </div>
+
+                        <div class="input-group input-group-lg mb-3">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-user"
+                                    [class.green-icon]="this.formClientes.get('nombre')?.valid"
+                                    [class.red-icon]="this.formClientes.get('nombre')?.invalid && this.formClientes.get('nombre')?.touched"></i>
+                            </span>
+                            <input formControlName="nombre" maxlength="16" type="text" class="form-control" placeholder="Nombre">
+                        </div>
+
+                        <div class="input-group input-group-lg mb-3">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-location-dot"
+                                    [class.green-icon]="this.formClientes.get('direccion')?.valid"
+                                    [class.red-icon]="this.formClientes.get('direccion')?.invalid && this.formClientes.get('direccion')?.touched"></i>
+                            </span>
+                            <input formControlName="direccion" maxlength="30" type="text" class="form-control" placeholder="Dirección">
+                        </div>
+
+                        <div class="input-group input-group-lg mb-3">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-phone"
+                                    [class.green-icon]="this.formClientes.get('telefono')?.valid"
+                                    [class.red-icon]="this.formClientes.get('telefono')?.invalid && this.formClientes.get('telefono')?.touched"></i>
+                            </span>
+                            <input formControlName="telefono" maxlength="10" type="text" class="form-control" placeholder="Teléfono ###">
+                        </div>
+
+                        <button [disabled]="this.formClientes.invalid" type="submit" class="btn btn-success btn-lg">
+                            <i class="fa-solid fa-database"></i>&nbsp; {{accion | uppercase}}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="titulo">Lista Clientes</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>Imagen</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of listaClientes; let i = index">
+                                <td>{{client.idcliente}}</td>
+                                <td>{{client.nombre}}</td>
+                                <td>{{client.direccion}}</td>
+                                <td>{{client.telefono}}</td>
+                                <td><img src="assets/images/avatar.png" class="img-usuario"></td>
+                                <td><i (click)="editarClientes(client);" class="far fa-solid fa-pencil text-info"></i></td>
+                                <td><i (click)="eliminarClientes(client.idcliente);" class="far fa-solid fa-trash-can text-danger"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
